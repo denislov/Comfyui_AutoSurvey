@@ -1,0 +1,4 @@
+weaviate-client
+tiktoken
+langchain
+langchain_community
