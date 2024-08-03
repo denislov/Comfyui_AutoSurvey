@@ -67,20 +67,18 @@ class ComfyWeaviate:
     def create_client(
         self, http_host, http_port, grpc_host, grpc_port, default_class
     ):
-        print(
-            json.dumps(
-                [
-                    http_host,
-                    http_port,
-                    grpc_host,
-                    grpc_port,
-                ],
-                indent=2,
-                ensure_ascii=False,
-            )
+        client_info = json.dumps(
+            [
+                http_host,
+                http_port,
+                grpc_host,
+                grpc_port,
+            ],
+            indent=2,
+            ensure_ascii=False,
         )
         self.db = WV_database(http_host, http_port, grpc_host, grpc_port,default_class)
-        message = f"weaviate client is ready: {self.db.client.is_ready()}"
+        message = f"weaviate client is ready: {self.db.client.is_ready()}\nclient info: {client_info}"
         print(message)
         return (self.db, message)
 

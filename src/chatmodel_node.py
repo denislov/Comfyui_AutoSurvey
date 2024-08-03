@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from .core.model import APIModel
 
@@ -14,7 +15,6 @@ class ChatModel:
         self.API_URL=config['API_URL']
 
         self.AVAILABLE_MODELS=config['AVAILABLE_MODELS']
-        print(self.AVAILABLE_MODELS)
 
     @classmethod
     def INPUT_TYPES(s):
@@ -35,12 +35,13 @@ class ChatModel:
     CATEGORY = "Senser/chat"
 
     def chat_bot(self, name, api_url, api_key):
-        if api_url:
+        if api_url is None:
             api_url = self.API_URL
-        if api_key:
+        if api_key is None:
             api_key = self.API_KEY
         model = APIModel(name, api_url=api_url, api_key=api_key)
         resp = model.chat("hello")
+        logging.info(f"Chat model {name} response: {resp}")
         return model, json.dumps(
             {
                 "model": name,

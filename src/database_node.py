@@ -1,5 +1,7 @@
 import json
 
+from .database.milvus_node import MS_NODE_CLASS_MAPPINGS, MS_NODE_DISPLAY_NAME_MAPPINGS
+
 from .database.weaviate_node import (
     WV_NODE_CLASS_MAPPINGS,
     WV_NODE_DISPLAY_NAME_MAPPINGS,
@@ -48,10 +50,7 @@ class QueryKnowledge:
     ):
         response = db_client.search_by_text(class_name, query_text, rag_number)
 
-        response = json.dumps(
-            [obj.properties for obj in response], indent=2, ensure_ascii=False
-        )
-        return (response,)
+        return (json.dumps(response,indent=4,ensure_ascii=False),)
 
 
 class ManageDatabase:
@@ -133,6 +132,7 @@ class AddDoc2Knowledge:
 
 DATABAE_NODE_CLASS_MAPPINGS = {
     **WV_NODE_CLASS_MAPPINGS,
+    **MS_NODE_CLASS_MAPPINGS,
     "QueryKnowledge": QueryKnowledge,
     "ManageDatabase": ManageDatabase,
     "AddDoc2Knowledge": AddDoc2Knowledge,
@@ -141,6 +141,7 @@ DATABAE_NODE_CLASS_MAPPINGS = {
 # A dictionary that contains the friendly/humanly readable titles for the nodes
 DATABAE_NODE_DISPLAY_NAME_MAPPINGS = {
     **WV_NODE_DISPLAY_NAME_MAPPINGS,
+    **MS_NODE_DISPLAY_NAME_MAPPINGS,
     "QueryKnowledge": "Query Knowledge",
     "ManageDatabase": "Manage Database",
     "AddDoc2Knowledge": "Add Doc to Knowledge",

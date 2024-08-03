@@ -2,7 +2,7 @@ from .database.database import Database
 from .core.model import APIModel
 from .agents.outline_writer import outlineWriter
 from .agents.writer import subsectionWriter
-
+import logging
 
 def remove_descriptions(text):
     lines = text.split("\n")
@@ -76,8 +76,8 @@ class WriteOutline:
         self, autosurvey: AutoSurvey, chatmodel: APIModel, database: Database
     ):
         outline_writer = outlineWriter(model=chatmodel, database=database)
-        test_txt = outline_writer.api_model.chat("hello")
-        print("测试chat输出：", test_txt)
+        test_txt = chatmodel.chat("hello")
+        logging.info(test_txt)
         final_outline = outline_writer.draft_outline(
             autosurvey.topic,
             autosurvey.outline_reference_num,

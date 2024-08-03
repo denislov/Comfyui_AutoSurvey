@@ -25,7 +25,7 @@ class outlineWriter:
         )
         print(references_ids)
         references_infos = self.db.get_paper_info_from_ids(references_ids)
-
+        print(references_infos)
         references_titles = [r["title"] for r in references_infos]
         references_content = [r["content"] for r in references_infos]
         paper_chunks, titles_chunks = self.chunking(

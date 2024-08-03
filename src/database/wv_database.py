@@ -132,7 +132,7 @@ class WV_database(Database):
             target_vector="content_vector",
             return_metadata=MetadataQuery(distance=True, score=True),
         ).objects
-        return response
+        return [item.properties for item in response]
 
     def get_ids_from_query(self, query, num, shuffle=False):
         collection = self.client.collections.get(self.class_name)
